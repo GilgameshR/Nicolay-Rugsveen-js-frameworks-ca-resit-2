@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import API from '../constants/api';
+import ListGroup from 'react-bootstrap/ListGroup';
 
 const Schools = () => {
 	const [data, setData] = useState([]);
@@ -27,18 +28,18 @@ const Schools = () => {
 	const filteredData = data.filter((item) => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
 	return (
 		<div>
-			<h1>API Data</h1>
+			<h1>Schools</h1>
 			<input type='text' placeholder='Search by name' value={searchTerm} onChange={handleSearch} />
 			{loading ? (
 				<div>Loading...</div>
 			) : (
-				<ul>
+				<ListGroup>
 					{filteredData.map((item, index) => (
-						<li key={index}>
-							Name: {item.name}, Domains: {item.domains.join(', ')}
-						</li>
+						<ListGroup.Item key={index}>
+							School: {item.name}, Website: {item.domains.join(', ')}
+						</ListGroup.Item>
 					))}
-				</ul>
+				</ListGroup>
 			)}
 		</div>
 	);

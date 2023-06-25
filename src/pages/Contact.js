@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Select from 'react-select';
+import Form from 'react-bootstrap/Form';
 
 const schema = yup.object().shape({
 	fName: yup.string().required('Please enter your first name').min(3, 'Name must be at least 3 letters'),
@@ -58,18 +59,22 @@ export default function Contact() {
 				<MenuBar />
 			</div>
 			<form onSubmit={handleSubmit(onSubmit)}>
-				<input type='text' placeholder='Name' {...register('fName')} />
-				{errors.fName && <span>{errors.fName.message}</span>}
-
-				<input type='text' placeholder='Email' {...register('email')} />
-				{errors.email && <span>{errors.email.message}</span>}
-
-				<Select placeholder='Subject' options={options} onChange={handleSelectChange} />
-				{errors.select && <span>{errors.select.message}</span>}
-
-				<textarea type='text' placeholder='Message' {...register('message')} />
-				{errors.message && <span>{errors.message.message}</span>}
-
+				<Form.Group className='mb-3' controlId='formGroupName'>
+					<input type='text' placeholder='Name' {...register('fName')} />
+					{errors.fName && <span>{errors.fName.message}</span>}
+				</Form.Group>
+				<Form.Group className='mb-3' controlId='formGroupEmail'>
+					<input type='text' placeholder='Email' {...register('email')} />
+					{errors.email && <span>{errors.email.message}</span>}
+				</Form.Group>
+				<Form.Select aria-label='Select an option'>
+					<Select placeholder='Subject' options={options} onChange={handleSelectChange} />
+					{errors.select && <span>{errors.select.message}</span>}
+				</Form.Select>
+				<Form.Group className='mb-3' controlId='formGroupMessage'>
+					<textarea type='text' placeholder='Message' {...register('message')} />
+					{errors.message && <span>{errors.message.message}</span>}
+				</Form.Group>
 				<button>Send</button>
 			</form>
 
